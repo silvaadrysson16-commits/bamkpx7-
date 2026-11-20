@@ -1,0 +1,11 @@
+{
+  "name": "BAMKPX7 HUB",
+  "short_name": "BAMKPX7",
+  "description": "Organize dinheiro, metas e tarefas.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#100d18",
+  "theme_color": "#120d1d",
+  "icons": [{"src":"icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]
+}

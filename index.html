@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#120d1d">
+  <meta name="description" content="BAMKPX7 HUB — organize dinheiro, metas e tarefas.">
+  <title>BAMKPX7 HUB</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <style>
+    :root{color-scheme:dark;--bg:#100d18;--panel:#1d1729;--panel2:#271d38;--line:#3c2d52;--purple:#a879ff;--text:#f7f2ff;--muted:#b9a9ce;--green:#85e0a5;--red:#ff9292}
+    *{box-sizing:border-box}body{margin:0;background:linear-gradient(160deg,#1a1028,var(--bg) 45%);color:var(--text);font:16px system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh}
+    .wrap{max-width:760px;margin:auto;padding:20px 16px 40px}.top{display:flex;align-items:center;justify-content:space-between;margin-bottom:18px}
+    h1{font-size:27px;letter-spacing:2px;margin:0}.tag{font-size:11px;color:#cdb7ff;letter-spacing:3px}.mark{background:var(--panel2);border:1px solid var(--line);padding:12px;border-radius:15px;color:var(--purple);font-weight:900}
+    nav{display:flex;gap:8px;margin:18px 0;position:sticky;top:0;background:#100d18ed;padding:8px 0;z-index:2}
+    button,input{font:inherit}button{border:1px solid var(--line);background:var(--panel2);color:var(--text);padding:11px 14px;border-radius:12px;cursor:pointer}
+    button.active,.primary{background:var(--purple);color:#180d27;border-color:var(--purple);font-weight:700}button:focus-visible,input:focus-visible{outline:2px solid var(--purple);outline-offset:2px}
+    .tab{flex:1}.card{background:linear-gradient(145deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:18px;padding:18px;margin:12px 0}
+    .muted{color:var(--muted);font-size:13px}.big{font-size:34px;font-weight:750;margin:5px 0 14px}.row{display:flex;gap:10px;align-items:center}.between{justify-content:space-between}
+    .bar{height:10px;background:#49375e;border-radius:99px;overflow:hidden}.fill{height:100%;background:var(--purple);width:0;transition:width .2s}
+    label{display:block;font-size:13px;color:var(--muted);margin:12px 0 6px}input{width:100%;padding:12px;border-radius:11px;border:1px solid var(--line);background:#120e1b;color:var(--text)}
+    .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.hidden{display:none}.entry{padding:12px 0;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px}.income{color:var(--green)}.expense{color:var(--red)}
+    .task{display:flex;align-items:center;gap:10px;padding:12px 0;border-bottom:1px solid var(--line)}.task input{width:18px;height:18px;accent-color:var(--purple)}.done{text-decoration:line-through;color:var(--muted)}
+    .smallbtn{padding:7px 10px;font-size:13px}.notice{font-size:12px;color:var(--muted);line-height:1.5}.footer{text-align:center;color:var(--muted);font-size:11px;letter-spacing:1px;margin-top:24px}
+    @media(max-width:430px){.grid{grid-template-columns:1fr}.big{font-size:29px}}
+  </style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top"><div><h1>BAMKPX7</h1><div class="tag">H U B · SEU PAINEL DIGITAL</div></div><div class="mark">BH</div></header>
+  <nav>
+    <button class="tab active" data-tab="home">Início</button><button class="tab" data-tab="money">Dinheiro</button><button class="tab" data-tab="tasks">Tarefas</button>
+  </nav>
+
+  <main id="home">
+    <section class="card">
+      <div class="muted">SEU SALDO REGISTRADO</div><div class="big" id="balance">R$ 0,00</div>
+      <div class="muted">META DE ECONOMIA</div><div class="big" style="font-size:25px" id="goalLabel">R$ 5.000,00</div>
+      <div class="bar"><div class="fill" id="progress"></div></div>
+      <div class="row between muted" style="margin-top:8px"><span id="percent">0% alcançados</span><span id="remaining">Restam R$ 5.000,00</span></div>
+    </section>
+    <section class="card"><strong>Seu painel</strong><p class="muted">Registre entradas e saídas, acompanhe sua meta e organize o que precisa fazer.</p>
+      <div class="grid"><button class="primary" data-go="money">＋ Registrar dinheiro</button><button data-go="tasks">＋ Criar tarefa</button></div>
+    </section>
+    <p class="notice">Seus dados ficam salvos neste aparelho/navegador. Eles não são enviados a um banco nem sincronizados entre dispositivos.</p>
+  </main>
+
+  <main id="money" class="hidden">
+    <section class="card">
+      <strong>Controle financeiro</strong>
+      <label for="goal">Meta de economia (R$)</label><input id="goal" type="number" min="1" step="0.01" value="5000">
+      <div class="grid">
+        <div><label for="kind">Movimentação</label><select id="kind" style="width:100%;padding:12px;border-radius:11px;background:#120e1b;color:white;border:1px solid var(--line)"><option value="in">Entrada</option><option value="out">Saída</option></select></div>
+        <div><label for="amount">Valor (R$)</label><input id="amount" type="number" min="0.01" step="0.01" placeholder="Ex.: 40,00"></div>
+      </div>
+      <label for="description">Descrição (opcional)</label><input id="description" maxlength="60" placeholder="Ex.: pagamento de sexta">
+      <button class="primary" id="addMoney" style="width:100%;margin-top:14px">Registrar movimentação</button>
+    </section>
+    <section class="card"><div class="row between"><strong>Histórico</strong><button class="smallbtn" id="clearMoney">Apagar histórico</button></div><div id="history" class="muted" style="margin-top:8px">Nenhuma movimentação registrada.</div></section>
+  </main>
+
+  <main id="tasks" class="hidden">
+    <section class="card"><strong>Lista de tarefas</strong><div class="row" style="margin-top:12px"><input id="taskInput" maxlength="100" placeholder="O que você precisa fazer?"><button class="primary" id="addTask">Adicionar</button></div><div id="taskList" style="margin-top:8px"></div></section>
+  </main>
+  <div class="footer">BAMKPX7 HUB · VERSÃO 1.0</div>
+</div>
+<script>
+const $=id=>document.getElementById(id);
+const money=n=>Number(n).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+let state={goal:5000,items:[],tasks:[]};
+try{const saved=JSON.parse(localStorage.getItem('bamkpx7hub'));if(saved&&typeof saved==='object')state={...state,...saved}}catch(e){}
+function save(){localStorage.setItem('bamkpx7hub',JSON.stringify(state));render()}
+function total(){return state.items.reduce((s,x)=>s+(x.kind==='in'?x.amount:-x.amount),0)}
+function render(){
+ const bal=total(),goal=Math.max(1,Number(state.goal)||5000),pct=Math.max(0,Math.min(100,bal/goal*100));
+ $('balance').textContent=money(bal);$('goalLabel').textContent=money(goal);$('progress').style.width=pct+'%';
+ $('percent').textContent=pct.toFixed(1).replace('.',',')+'% alcançados';$('remaining').textContent='Restam '+money(Math.max(0,goal-bal));
+ $('goal').value=state.goal;
+ $('history').innerHTML='';
+ if(!state.items.length)$('history').textContent='Nenhuma movimentação registrada.';
+ [...state.items].reverse().forEach(x=>{const d=document.createElement('div');d.className='entry';const left=document.createElement('span');left.textContent=(x.kind==='in'?'Entrada':'Saída')+(x.desc?' · '+x.desc:'');const right=document.createElement('strong');right.className=x.kind==='in'?'income':'expense';right.textContent=(x.kind==='in'?'+':'−')+' '+money(x.amount);d.append(left,right);$('history').append(d)});
+ $('taskList').innerHTML='';
+ if(!state.tasks.length)$('taskList').textContent='Nenhuma tarefa por enquanto.';
+ state.tasks.forEach((t,i)=>{const d=document.createElement('div');d.className='task';const cb=document.createElement('input');cb.type='checkbox';cb.checked=t.done;cb.setAttribute('aria-label','Concluir tarefa');cb.onchange=()=>{state.tasks[i].done=cb.checked;save()};const span=document.createElement('span');span.textContent=t.name;span.className=t.done?'done':'';span.style.flex='1';const del=document.createElement('button');del.className='smallbtn';del.textContent='Excluir';del.onclick=()=>{state.tasks.splice(i,1);save()};d.append(cb,span,del);$('taskList').append(d)});
+}
+function show(tab){document.querySelectorAll('main').forEach(m=>m.classList.toggle('hidden',m.id!==tab));document.querySelectorAll('.tab').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab))}
+document.querySelectorAll('[data-tab]').forEach(b=>b.onclick=()=>show(b.dataset.tab));
+document.querySelectorAll('[data-go]').forEach(b=>b.onclick=()=>show(b.dataset.go));
+$('goal').onchange=()=>{state.goal=Math.max(1,Number($('goal').value)||5000);save()};
+$('addMoney').onclick=()=>{const amount=Number($('amount').value);if(!Number.isFinite(amount)||amount<=0){alert('Digite um valor maior que zero.');return}state.items.push({kind:$('kind').value,amount,desc:$('description').value.trim(),date:new Date().toISOString()});$('amount').value='';$('description').value='';save()};
+$('clearMoney').onclick=()=>{if(confirm('Apagar todo o histórico de movimentações?')){state.items=[];save()}};
+$('addTask').onclick=()=>{const name=$('taskInput').value.trim();if(!name)return;state.tasks.push({name,done:false});$('taskInput').value='';save()};
+$('taskInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('addTask').click()});
+if('serviceWorker' in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+render();
+</script>
+</body></html>
